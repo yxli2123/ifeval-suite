@@ -1,0 +1,13 @@
+accelerate
+transformers
+langdetect
+six
+emoji
+nltk
+pythainlp
+pandas
+scipy
+anthropic
+mistralai
+google.generativeai
+openai
