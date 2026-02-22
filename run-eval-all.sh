@@ -8,9 +8,9 @@ MODEL_PATH=${MODEL_PATH:-Qwen/Qwen3-4B}
 HF_TOKEN=${HF_TOKEN:-}
 
 # OpenAI API config
-JUDGE_BACKEND=OpenAIModel
-JUDGE_NAME=${JUDGE_NAME:-openai.gpt-oss-120b-1:0}
-JUDGE_URL=${JUDGE_URL:-https://api.openai.com}
+#JUDGE_BACKEND=OpenAIModel
+#JUDGE_NAME=${JUDGE_NAME:-openai.gpt-oss-120b-1:0}
+#JUDGE_URL=${JUDGE_URL:-https://api.openai.com}
 API_KEY=${API_KEY:-}
 if [[ -n "${API_KEY:-}" ]]; then
   export OPENAI_API_KEY="$API_KEY"
@@ -37,8 +37,9 @@ bash /root/ifeval-suite/install_dependency.sh
 # Download the model.
 if [[ ! -d "${MODEL_PATH}" ]]; then
   echo "Model dir not found: ${MODEL_PATH}"
-  echo "Downloading ${MODEL_PATH} -> ./ckpt/${MODEL_PATH}"
-  hf download "${MODEL_PATH}" --local-dir "./ckpt/${MODEL_PATH}"
+  echo "Downloading ${MODEL_PATH} -> /root/ckpt/${MODEL_PATH}"
+  hf download "${MODEL_PATH}" --local-dir "/root/ckpt/${MODEL_PATH}"
+  export MODEL_PATH="/root/ckpt/${MODEL_PATH}"
 else
   echo "Model dir exists: ${MODEL_PATH} (skip download)"
 fi
