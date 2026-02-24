@@ -59,6 +59,12 @@ lm_eval --model vllm \
   --apply_chat_template \
   --output_path ${OUTPUT_DIR}/lm-eval-harness
 
+find ${OUTPUT_DIR}/lm-eval-harness -type f \( -name "*.txt" -o -name "*.json" -o -name "*.jsonl" \) -exec sh -c '
+  for f do
+    printf "\n===== %s =====\n" "$f"
+    head -n 50 "$f"
+  done
+' sh {} +
 
 ##### IFBench #####
 # 1) Generate responses to IFBench test data
@@ -72,6 +78,8 @@ python if_bench/generate_response.py \
   --max_new_tokens 4096 \
   --batch_size 256 \
   --temperature 0.6
+
+head -50 ${IFBENCH_RESPONSE_FILE}
 
 # 2) Run evaluation
 python3 if_bench/run_eval.py \
@@ -92,6 +100,8 @@ python multi_challenge/generate_response.py \
   --max_new_tokens 4096 \
   --batch_size 256 \
   --temperature 0.6
+
+head -50 ${MULTI_RESPONSE_FILE}
 
 # 2) Run evaluation
 python multi_challenge/main.py \
