@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ========== Config here ==========
-EVAL_OUTPUT_DIR=${EVAL_OUTPUT_DIR:-"eval_results/run-$(date '+%Y%m%d-%H%M%S')"}
+OUTPUT_DIR=${OUTPUT_DIR:-"eval_results/run-$(date '+%Y%m%d-%H%M%S')"}
 
 # Model path, local or huggingface.
 MODEL_PATH=${MODEL_PATH:-Qwen/Qwen3-4B}
@@ -99,9 +99,9 @@ python multi_challenge/main.py \
   --responses-file ${MULTI_RESPONSE_FILE} \
   --output-file ${OUTPUT_DIR}/multi_challenge/evaluation_results.txt \
   --raw ${OUTPUT_DIR}/multi_challenge/detailed_results.csv \
-  --judge-name $OPENAI_MODEL_NAME \
-  --judge-url $OPENAI_BASE_URL \
-  --judge-backend $OPENAI_API_KEY \
+  --judge-name ${JUDGE_NAME} \
+  --judge-url ${JUDGE_URL} \
+  --judge-backend ${JUDGE_BACKEND} \
   --max-workers_eval 64
 
 cat $OUTPUT_DIR/multi_challenge/evaluation_results.txt
