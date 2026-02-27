@@ -206,7 +206,7 @@ class StopWordPercentageChecker(Instruction):
         """Checks if the response contains the expected percentage of stop words."""
         num_words = instructions_util.count_words(value)
         num_stopwords = instructions_util.count_stopwords(value)
-        stopword_percentage = (num_stopwords / num_words) * 100
+        stopword_percentage = 0 if num_words == 0 else (num_stopwords / num_words) * 100
         return stopword_percentage <= self._percentage
 
 
